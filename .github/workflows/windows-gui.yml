@@ -1,0 +1,38 @@
+name: Build Windows GUI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'desktop/**'
+      - 'src/lib/ytdlp.ts'
+      - 'src/lib/format.ts'
+      - '.github/workflows/windows-gui.yml'
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        working-directory: desktop
+        run: npm install
+      - name: Typecheck
+        working-directory: desktop
+        run: npm run typecheck
+      - name: Unit tests
+        working-directory: desktop
+        run: npm test
+      - name: Build Windows package
+        working-directory: desktop
+        run: npm run dist:win
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: yoinks-gui-windows
+          path: desktop/release/*
+          if-no-files-found: error
