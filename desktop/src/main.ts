@@ -1,14 +1,12 @@
 import {app, BrowserWindow, dialog, ipcMain, shell} from 'electron'
-import {randomUUID} from 'node:crypto'
 import {existsSync} from 'node:fs'
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {fileURLToPath} from 'node:url'
 import {download, ensureYtDlp, findFfmpeg, probe, type VideoInfo} from '../../src/lib/ytdlp.js'
 import {audioOptions, downloadChoice, videoOptions} from './options.js'
 
-const root = path.dirname(fileURLToPath(import.meta.url))
+const root = __dirname
 let window: BrowserWindow | undefined
 let controller: AbortController | undefined
 let stage: 'idle' | 'analyzing' | 'downloading' = 'idle'
