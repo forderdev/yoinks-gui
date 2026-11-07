@@ -53,3 +53,26 @@ The output is under `desktop/release/`: an NSIS setup installer and a portable e
 - The GUI is currently in Turkish.
 - Download interruptions or site changes can cause errors; try the latest yt-dlp version if supported links stop working.
 - The original yoinks CLI works as before: from the root of the repository, run `npm install && npm run build`.
+
+
+## Troubleshooting: Electron binary missing on newer Node.js versions
+
+If `npm start` reports `Electron failed to install correctly` and
+`node_modules/electron/dist` contains only `locales`, the dependency's
+ZIP extraction may be failing under newer Node.js versions.
+
+From the `desktop` directory:
+
+```cmd
+npm pkg set "overrides.yauzl=^3.3.1"
+npm install
+node node_modules\electron\install.js
+dir node_modules\electron\dist\electron.exe
+npm start
+```
+
+This repository includes the `yauzl` override for new checkouts. Existing
+ZIP downloads should install/update their local dependencies with the
+commands above. If the Electron executable is still missing, try Node.js 22
+LTS and reinstall dependencies. Avoid `npm audit fix --force` until the
+dependency changes can be reviewed.
