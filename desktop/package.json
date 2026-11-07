@@ -36,12 +36,18 @@
       "package.json"
     ],
     "win": {
-      "target": ["nsis", "portable"],
+      "target": [
+        "nsis",
+        "portable"
+      ],
       "artifactName": "${productName}-${version}-${arch}.${ext}"
     },
     "nsis": {
       "oneClick": true,
       "createDesktopShortcut": true
     }
+  },
+  "overrides": {
+    "yauzl": "^3.3.1"
   }
 }
