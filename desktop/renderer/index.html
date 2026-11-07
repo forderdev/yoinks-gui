@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self'; connect-src 'none'">
+  <title>Yoinks GUI</title>
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="header">
+      <div class="brand"><div class="brand-icon">↓</div><div><h1>yoinks<span> GUI</span></h1><p>paste. pick. download.</p></div></div>
+      <div class="platforms">YouTube · Instagram · TikTok · X · +1800</div>
+    </header>
+
+    <section class="panel">
+      <div class="step"><span>01</span><h2>Bağlantıyı yapıştır</h2></div>
+      <label for="url">Video bağlantısı</label>
+      <div class="urlbar">
+        <input id="url" type="url" autocomplete="off" spellcheck="false" placeholder="https://www.youtube.com/watch?v=..." autofocus>
+        <button id="analyze" class="primary">Bağlantıyı bul <span>→</span></button>
+      </div>
+      <p class="hint">İndirmek istediğin videonun bağlantısını yapıştır ve analiz et.</p>
+    </section>
+
+    <section id="details" class="panel" hidden>
+      <div class="step"><span>02</span><h2>Kaliteyi seç</h2></div>
+      <div class="video-info">
+        <div class="media-icon">▶</div>
+        <div class="media-details"><h3 id="title"></h3><p id="meta"></p></div>
+      </div>
+      <div class="choice-grid">
+        <div>
+          <label for="mode">İndirme türü</label>
+          <select id="mode"><option value="video">Video + ses</option><option value="audio">Yalnızca ses (MP3)</option></select>
+        </div>
+        <div id="video-field">
+          <label for="resolution">Video çözünürlüğü</label>
+          <select id="resolution"></select>
+        </div>
+        <div>
+          <label for="audio-quality">Ses kalitesi</label>
+          <select id="audio-quality"></select>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <label for="folder">Kaydetme konumu</label>
+      <div class="folderbar"><div id="folder" class="folderpath"></div><button id="choose-folder" class="secondary">Klasör seç</button></div>
+      <button id="download" class="primary download">↓ İndir</button>
+    </section>
+
+    <section class="panel progress-panel" id="progress-panel" hidden>
+      <div class="status-head"><h2 id="status-title">İndiriliyor…</h2><strong id="percentage">0%</strong></div>
+      <div class="bar"><div id="progress-fill"></div></div>
+      <p id="transfer">Hazırlanıyor…</p>
+      <div class="actions"><button id="cancel" class="secondary">İptal et</button><button id="open-folder" class="secondary" hidden>Dosyayı göster</button></div>
+    </section>
+
+    <div id="message" role="status" aria-live="polite"></div>
+    <footer>Powered by yoinks + yt-dlp · Yalnızca indirme hakkına sahip olduğun içerikleri indir.</footer>
+  </main>
+</body>
+</html>
